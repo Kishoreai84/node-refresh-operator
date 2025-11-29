@@ -1,0 +1,21 @@
+apiVersion: operations.example.com/v1alpha1
+kind: NodeRefresh
+metadata:
+  name: weekly-node-refresh
+  namespace: node-refresh-operator
+spec:
+  targetNodes:
+    selector:
+      node-type: worker
+      environment: production
+    maxConcurrentNodes: 2
+  podManagement:
+    maxPodsToMove: 5
+    minHealthyPods: 3
+    drainTimeout: 600
+  schedule:
+    enabled: true
+    intervalDays: 3
+  healthChecks:
+    readinessTimeout: 300
+    livenessChecks: true
